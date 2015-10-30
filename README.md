@@ -24,3 +24,25 @@ sudo service tor restart
 # After installation may be good idea to
 sudo reboot
 ```
+
+# Troubleshooting
+
+Is entropy level too low (<1000)?
+```sh
+python -c "$(echo -e "import time\nwhile True:\n time.sleep(1)\n print open('/proc/sys/kernel/random/entropy_avail', 'rb').read(),")"
+```
+
+# How much Tor is consuming CPU?
+
+```sh
+top -sp <tor_pid>
+```
+
+# Too many TCP connections?
+
+```sh
+netstat -tn | wc -l
+ulimit -n
+# Try this if you have problems
+ulimit -n 20000
+```
