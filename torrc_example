@@ -1,42 +1,23 @@
 ## Required: what port to advertise for incoming Tor connections.
 ORPort 443
 
-# mirror directory information for others
+# mirror directory information for others    
 DirPort 80
 
 ## Required: A unique handle for this server. Choose one.
 Nickname Dignify01
 
-## Contact info to be published in the directory, so we can contact you
-## if your relay is misconfigured or something else goes wrong. Google
-## indexes this, so spammers might also collect it.
-ContactInfo juha.nurmi<att>ahmia.fi
-
-## The IP or fqdn for this server. Leave commented out and Tor will guess.
-## This may be required, if tor cannot guess your public IP.
-Address SET_IP_ADDRESS_HERE
+## Contact info to be published in the directory, so we can contact you 
+## if your relay is misconfigured or something else goes wrong. Google 
+## indexes this, so spammers might also collect it.                  
+ContactInfo juha.nurmi<<a>>ahmia.fi
 
 ## Uncomment to return an arbitrary blob of html on your DirPort.
 DirPortFrontPage /etc/tor/tor-exit-notice.html
 
-OutboundBindAddress SET_IP_ADDRESS_HERE
-
 RunAsDaemon 1
 AvoidDiskWrites 1
-#MaxMemInQueues 256 M
 
-## To limit your bandwidth usage, define this. Note that BandwidthRate
-## must be at least 20 KB.
-#BandwidthRate 30720 KB        # Throttle traffic to 10240KB/s 
-#BandwidthBurst  51200 KB      # But allow bursts up to 20480KB/s 
-
-ExitPolicy reject 0.0.0.0/8:*
-ExitPolicy reject 169.254.0.0/16:*
-ExitPolicy reject 127.0.0.0/8:*
-ExitPolicy reject 192.168.0.0/16:*
-ExitPolicy reject 10.0.0.0/8:*
-ExitPolicy reject 172.16.0.0/12:*
-ExitPolicy reject SET_IP_ADDRESS_HERE:*
 ExitPolicy accept *:20-23     # FTP, SSH, telnet
 ExitPolicy accept *:43        # WHOIS
 ExitPolicy accept *:53        # DNS
@@ -49,17 +30,24 @@ ExitPolicy accept *:220       # IMAP3
 ExitPolicy accept *:389       # LDAP
 ExitPolicy accept *:443       # HTTPS
 ExitPolicy accept *:464       # kpasswd
+ExitPolicy accept *:465       # URD for SSM (more often: an alternative SUBMISSION port, see 587)
 ExitPolicy accept *:531       # IRC/AIM
 ExitPolicy accept *:543-544   # Kerberos
 ExitPolicy accept *:554       # RTSP
 ExitPolicy accept *:563       # NNTP over SSL
+ExitPolicy accept *:587       # SUBMISSION (authenticated clients [MUA's like Thunderbird] send mail over STARTTLS SMTP here)
 ExitPolicy accept *:636       # LDAP over SSL
 ExitPolicy accept *:706       # SILC
 ExitPolicy accept *:749       # kerberos 
 ExitPolicy accept *:873       # rsync
 ExitPolicy accept *:902-904   # VMware
 ExitPolicy accept *:981       # Remote HTTPS management for firewall
-ExitPolicy accept *:989-995   # FTP over SSL, Netnews Administration System, telnets, IMAP over SSL, ircs, POP3 over SSL
+ExitPolicy accept *:989-990   # FTP over SSL
+ExitPolicy accept *:991       # Netnews Administration System
+ExitPolicy accept *:992       # TELNETS
+ExitPolicy accept *:993       # IMAP over SSL
+ExitPolicy accept *:994       # IRCS
+ExitPolicy accept *:995       # POP3 over SSL
 ExitPolicy accept *:1194      # OpenVPN
 ExitPolicy accept *:1220      # QT Server Admin
 ExitPolicy accept *:1293      # PKT-KRB-IPSec
@@ -91,8 +79,9 @@ ExitPolicy accept *:8000      # iRDMI
 ExitPolicy accept *:8008      # HTTP alternate
 ExitPolicy accept *:8074      # Gadu-Gadu
 ExitPolicy accept *:8080      # HTTP Proxies
+ExitPolicy accept *:8082      # HTTPS Electrum Bitcoin port
 ExitPolicy accept *:8087-8088 # Simplify Media SPP Protocol, Radan HTTP
-ExitPolicy accept *:8332-8333 # BitCoin
+ExitPolicy accept *:8332-8333 # Bitcoin
 ExitPolicy accept *:8443      # PCsync HTTPS
 ExitPolicy accept *:8888      # HTTP Proxies, NewsEDGE
 ExitPolicy accept *:9418      # git
@@ -101,5 +90,6 @@ ExitPolicy accept *:10000     # Network Data Management Protocol
 ExitPolicy accept *:11371     # OpenPGP hkp (http keyserver protocol)
 ExitPolicy accept *:19294     # Google Voice TCP
 ExitPolicy accept *:19638     # Ensim control panel
+ExitPolicy accept *:50002     # Electrum Bitcoin SSL
+ExitPolicy accept *:64738     # Mumble
 ExitPolicy reject *:*
-
