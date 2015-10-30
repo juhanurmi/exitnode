@@ -48,11 +48,11 @@ apt-get -y remove raspberrypi-ui-mods
 
 # Remove packages
 for i in $pkgs; do
-	echo apt-get -y remove --purge $i
+	apt-get -y remove --purge $i
 done
 
 # Remove automatically installed dependency packages
-echo apt-get -y autoremove
+apt-get -y autoremove
 
 # Remove all packages marked rc (thanks @symm)
 dpkg --list |grep "^rc" | cut -d " " -f 3 | xargs dpkg --purge 

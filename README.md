@@ -20,4 +20,6 @@ sudo modprobe ip_conntrack
 sudo service iptables-persistent restart
 sudo sysctl -p /etc/sysctl.conf
 sudo service tor restart
+# After installation may be good idea to
+sudo reboot
 ```
